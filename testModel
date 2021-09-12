@@ -1,0 +1,21 @@
+from PIL import Image
+import io
+import tangram
+
+model_path = 'clothesDate.tangram'
+
+model = tangram.Model.from_path(model_path)
+
+an_image = Image.open("shirtTest.jpg")
+
+output = io.BytesIO()
+an_image.save(output, format="JPEG")
+image_as_string = str(output.getvalue())
+
+input = {'clothesString':image_as_string}
+
+# Make the prediction!
+output = model.predict(input)
+
+# Print the output.
+print('Output:', output)
